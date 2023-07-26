@@ -1,4 +1,52 @@
-Env
-node_modules
+# Python-related files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyc
 
+# Development and IDE files
+*.sqlite3
 *.db
+*.env
+*.env.*
+*.vscode/
+.vscode/
+*.pydevproject
+*.pyt
+*.pyproj
+*.orig
+
+# Compiled Python modules
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Wagtail-specific files
+wagtail/
+wagtail.sqlite3
+
+# Media and static files (if they are generated during development)
+/media/
+/static/
+
+# Virtual environment
+Env
+
+# Editor-specific files (add more if you're using a different editor)
+.idea/
+
+# Build files and output
+build/
+dist/
+*.egg-info/
+*.egg
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
