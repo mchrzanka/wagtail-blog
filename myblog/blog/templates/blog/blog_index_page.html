@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    <!--wagtail follows the tree structure (consisting of nodes and leaves). BlogIndexPage is a "node" and individual BlogPage instances are the "leaves". Page.get_children() is a method that retrieves all the immediate child pages of that page. 
+
+    To access the BlogPage record, the .specific method is used (instead of doing "post.intro"). 
+
+    {% for post in page.get_children %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {{ post.specific.intro }}
+        {{ post.specific.body|richtext }}
+    {% endfor %}
+
+    However to clean up this code, use the Django's "with" tag, as done below.
+
+    In Django, the with template tag is used to assign a value to a variable within a template block. It allows you to give a name to a complex or lengthy expression or to simplify code when working with template variables.
+
+    I also changed the for loop to match the context being returned by the model, which had to be updated to show only published posts (because the way I had it previously was showing all posts, drafts included).
+    -->
+
+    {% for post in blogpages %}
+    {% with post=post.specific %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+
+        {% with post.main_image as main_image %} <!-- instead of writing "post.main_image"  -->
+            {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+        {% endwith %}
+
+        <p>{{ post.intro }}</p>
+        <!-- richtext filter processes the text content to be displayed properly in the html -->
+        {{ post.body|richtext }}
+    {% endwith %}
+{% endfor %}
+
+{% endblock %}
